@@ -58,7 +58,7 @@ public class JettyReceiver {
         context.setResourceBase("webapp");
 
 		
-		Server myserver = new Server(8888);
+		Server myserver = new Server(8800);
 		myserver.setConnectors(new Connector[]{connector1});
 		ServletHandler handler = new ServletHandler();
 		handler.addServletWithMapping(ContinuumServlet.class, "/hello");
