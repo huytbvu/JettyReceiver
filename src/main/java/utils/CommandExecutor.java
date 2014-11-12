@@ -11,7 +11,11 @@ public class CommandExecutor {
 	
 	public static void executeOperation(String action, BufferedReader br) throws IOException{
 		String desc = JSONUtils.retrieveJSONString(br);
+		System.out.println("JSON String received from flock master is:");
+		System.out.println(desc);
+		System.out.println();
 		String apcCmd = "";
+		System.out.println("Current operation is "+action);
 		switch(action){
 			case "start":
 				ServiceDescription sd = JSONUtils.fromJSON(desc);
@@ -26,6 +30,10 @@ public class CommandExecutor {
 			default:
 				break;
 		}
+		
+		
+		System.out.println("Command to execute is following: ");
+		System.out.println(apcCmd);
 		Process p = Runtime.getRuntime().exec(apcCmd);
 		
 		// print out something to test
