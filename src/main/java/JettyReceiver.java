@@ -21,24 +21,21 @@ public class JettyReceiver {
 		
 		@Override
 		protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException{
-			
-			req.getReader();
-			
+			System.out.println("just receive a GET");
+			BufferedReader reader = req.getReader();
+			CommandExecutor.executeOperation("list", reader);
 		}
 		
 		@Override
 		protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException{
-			resp.getWriter().println("<p>POST yolo</p>");
-			
+			System.out.println("just receive a POST");
 			BufferedReader reader = req.getReader();
 			CommandExecutor.executeOperation("start", reader);
 		}
 		
 		@Override
 		protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws IOException{
-			resp.getWriter().println("<p>Delete it</p>");
-			
-			
+			System.out.println("just receive a DELETE");
 			BufferedReader reader = req.getReader();
 			CommandExecutor.executeOperation("stop", reader);
 		}
