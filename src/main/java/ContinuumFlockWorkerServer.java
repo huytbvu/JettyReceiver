@@ -33,7 +33,7 @@ public class ContinuumFlockWorkerServer extends AbstractHandler{
 		else {
 			Server server = new Server(Integer.parseInt(args[1]));
 			ServletContextHandler context = new ServletContextHandler(ServletContextHandler.SESSIONS);
-	        context.setVirtualHosts(new String[]{"localhost",args[0]});
+	        context.setVirtualHosts(new String[]{args[0]});
 			ServletHandler sh = new ServletHandler();
 			sh.addServletWithMapping("ContinuumServlet", "/");
 			context.setHandler(sh);
