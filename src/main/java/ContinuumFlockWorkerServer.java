@@ -10,7 +10,7 @@ import org.eclipse.jetty.server.Request;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHandler;
 
-public class JettyReceiver extends AbstractHandler{
+public class ContinuumFlockWorkerServer extends AbstractHandler{
 
 	@Override
 	public void handle(String target, Request baseRequest, HttpServletRequest request, HttpServletResponse response)
@@ -23,7 +23,7 @@ public class JettyReceiver extends AbstractHandler{
 	}
 	
 	private static void usage(){
-		System.out.println("<hostname> <port>");
+		System.out.println("please provide arguments: <hostname> <port>");
 	}
 
 	public static void main(String[] args) throws Exception
@@ -47,3 +47,4 @@ public class JettyReceiver extends AbstractHandler{
 
 	
 }
+
