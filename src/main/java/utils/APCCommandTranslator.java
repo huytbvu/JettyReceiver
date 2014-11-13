@@ -1,9 +1,5 @@
 package utils;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
-
 import apc.command.AppCommand;
 import apc.command.DockerCommand;
 import enums.JobType;
@@ -43,6 +39,10 @@ public class APCCommandTranslator {
 	
 	public static String translateDeletionAndRestartCommand(String jobAction){
 		return "apc app " + jobAction;
+	}
+	
+	public static String translateListCommand(){
+		return "apc app list";
 	}
 	
 
