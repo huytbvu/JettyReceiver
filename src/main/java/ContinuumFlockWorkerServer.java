@@ -37,7 +37,7 @@ public class ContinuumFlockWorkerServer extends AbstractHandler{
 			ServletContextHandler context = new ServletContextHandler(ServletContextHandler.SESSIONS);
 	        context.setVirtualHosts(new String[]{args[0]});
 			ServletHandler sh = new ServletHandler();
-			sh.addServletWithMapping(DeleteAppServlet.class, "/delete/");
+			sh.addServletWithMapping(DeleteAppServlet.class, "/delete/*");
 			sh.addServletWithMapping(CreateAppServlet.class, "/create/");
 			sh.addServletWithMapping(RestartAppServlet.class, "/restart/");
 			sh.addServletWithMapping(StopAppServlet.class, "/stop/");

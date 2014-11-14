@@ -15,6 +15,7 @@ public class DeleteAppServlet extends HttpServlet{
 	protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws IOException{
 		System.out.println("just receive a DELETE");
 		BufferedReader br = req.getReader();
-		CommandExecutor.executeOperations("delete", br);
+		System.out.println(req.getPathInfo().substring(1));
+		CommandExecutor.executeOperations("delete", br, req.getPathInfo().substring(1));
 	}
 }

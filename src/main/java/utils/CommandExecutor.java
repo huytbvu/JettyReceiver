@@ -11,9 +11,8 @@ public class CommandExecutor {
 	
 	
 	
-	public static void executeOperations(String action, BufferedReader br) throws IOException{
+	public static void executeOperations(String action, BufferedReader br, String appName) throws IOException{
 		String desc = JSONUtils.retrieveJSONString(br);
-		String appName = "";
 		System.out.println("JSON String received from flock master is:");
 		System.out.println(desc);
 		System.out.println();
@@ -25,19 +24,15 @@ public class CommandExecutor {
 				apcCmd = APCCommandTranslator.getCreateCommands(sd, JobType.DOCKER);
 				break;
 			case "start":
-				appName = br.readLine();
 				apcCmd = APCCommandTranslator.getStartComands(appName);
 				break;
 			case "stop":
-				appName = br.readLine();
 				apcCmd = APCCommandTranslator.getStopComands(appName);
 				break;
 			case "restart":
-				appName = br.readLine();
 				apcCmd = APCCommandTranslator.getRestartComands(appName);
 				break;
 			case "delete":
-				appName = br.readLine();
 				apcCmd = APCCommandTranslator.getDeleteComands(appName);
 				break;
 			case "list":
