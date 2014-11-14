@@ -26,7 +26,7 @@ import utils.CommandExecutor;
 			resp.setContentType("text/html;charset=utf-8");
 	        resp.setStatus(HttpServletResponse.SC_OK);
 			BufferedReader reader = req.getReader();
-			CommandExecutor.executeOperation("start", reader);
+			CommandExecutor.executeOperations("start", reader);
 		}
 		
 		@Override
