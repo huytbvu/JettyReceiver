@@ -18,21 +18,42 @@ import com.google.gson.*;
 
 public class JSONUtils {
 	
+	/**
+	 * convert an object to JSON
+	 * @param Object 
+	 * @return JSON-String represenation
+	 */
 	public static String toJSON(Object o){
 		Gson gson = new GsonBuilder().create();
 		return gson.toJson(o);
 	}
 	
+	/**
+	 * convert JSON string to ServiceDescription
+	 * @param json
+	 * @return a service description
+	 */
 	public static ServiceDescription fromJSON(String json){
 		Gson gson = new GsonBuilder().create();
 		return gson.fromJson(json, ServiceDescription.class);
 	}
 
+	/**
+	 * read JSON string from file
+	 * @param filename
+	 * @return JSON string
+	 * @throws IOException
+	 */
 	public static String readFileToString(String filename) throws IOException{
 		BufferedReader br = new BufferedReader(new FileReader(filename));
 		return retrieveJSONString(br);
 	}
-	
+	/**
+	 * read JSON string from buffered reader
+	 * @param buffered reader
+	 * @return JSON String
+	 * @throws IOException
+	 */
 	public static String retrieveJSONString(BufferedReader br) throws IOException{
 		StringBuilder sb = new StringBuilder();
 		while(br.ready()){

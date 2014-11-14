@@ -5,27 +5,28 @@ public class AppCommand extends AbstractCommand {
 	
 	public AppCommand(String name,String action){
 		super();
-		sb.append("apc app "+action+" "+name);
+		cmdBuild.add("apc");
+		cmdBuild.add("app");
+		cmdBuild.add(action);
+		cmdBuild.add(name);
 	}
 	
 	public void addStartCmdParam(String paramStartCmd){
-		sb.append(" --start-cmd \""+paramStartCmd+"\"");
-	}
-	
-	public void addInstancesParam(int instances){
-		sb.append(" --instances "+instances);
+		cmdBuild.add("--start-cmd");
+		cmdBuild.add(paramStartCmd);
 	}
 	
 	public void addRouteParam(String route){
-		sb.append(" --routes "+route);
+		cmdBuild.add("--routes ");
+		cmdBuild.add(route);
 	}
 	
 	public void enableStart(){
-		sb.append(" --start");
+		cmdBuild.add("--start");
 	}
 	
 	public void enableAllowEgress(){
-		sb.append(" --allow-egress");
+		cmdBuild.add(" --allow-egress");
 	}
 	
 	

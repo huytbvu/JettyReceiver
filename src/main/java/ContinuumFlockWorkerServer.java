@@ -10,6 +10,8 @@ import org.eclipse.jetty.server.Request;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHandler;
 
+import servlet.*;
+
 public class ContinuumFlockWorkerServer extends AbstractHandler{
 
 	@Override
@@ -35,10 +37,13 @@ public class ContinuumFlockWorkerServer extends AbstractHandler{
 			ServletContextHandler context = new ServletContextHandler(ServletContextHandler.SESSIONS);
 	        context.setVirtualHosts(new String[]{args[0]});
 			ServletHandler sh = new ServletHandler();
-			sh.addServletWithMapping("ContinuumServlet", "/");
+			sh.addServletWithMapping(DeleteAppServlet.class, "/delete/");
+			sh.addServletWithMapping(CreateAppServlet.class, "/create/");
+			sh.addServletWithMapping(RestartAppServlet.class, "/restart/");
+			sh.addServletWithMapping(StopAppServlet.class, "/stop/");
+			sh.addServletWithMapping(ListAppServlet.class, "/list/");
 			context.setHandler(sh);
 			server.setHandler(context);
-			//server.setHandler(new HelloTest());
 			server.start();
 			server.join();
 		}

@@ -4,26 +4,34 @@ public class ServiceCommand extends AbstractCommand {
 
 	public ServiceCommand(String name,String action){
 		super();
-		sb.append("apc service "+action+" "+name);
+		cmdBuild.add("apc");
+		cmdBuild.add("service");
+		cmdBuild.add(action);
+		cmdBuild.add(name);
 	}
 	
 	public void addProvider(String provider){
-		sb.append(" --provider "+provider);
+		cmdBuild.add("--provider");
+		cmdBuild.add(provider);
 	}
 	
 	public void addBinding(String binding){
-		sb.append(" --binding "+binding);
+		cmdBuild.add("--binding");
+		cmdBuild.add(binding);
 	}
 	
 	public void addDescription(String description){
-		sb.append(" --description "+description);
+		cmdBuild.add("--description");
+		cmdBuild.add(description);
 	}
 	
 	public void addJob(String job){
-		sb.append(" --job "+job);
+		cmdBuild.add("--job");
+		cmdBuild.add(job);
 	}
 	
 	public void addServiceType(String type){
-		sb.append(" --type "+type);
+		cmdBuild.add("--type");
+		cmdBuild.add(type);
 	}
 }

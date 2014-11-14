@@ -4,15 +4,20 @@ public class CapsuleCommand extends AbstractCommand{
 	
 	public CapsuleCommand(String name,String action){
 		super();
-		sb.append("apc capsule "+action+" "+name);
+		cmdBuild.add("apc");
+		cmdBuild.add("capsule");
+		cmdBuild.add(action);
+		cmdBuild.add(name);
 	}
 	
 	public void addImagesParam(String dockerImg){
-		sb.append(" --image "+dockerImg);
+		cmdBuild.add("--image");
+		cmdBuild.add(dockerImg);
 	}
 	
 	public void addSnapshotParam(String snapshot){
-		sb.append(" --snapshot "+snapshot);
+		cmdBuild.add("--snapshot");
+		cmdBuild.add(snapshot);
 	}
 
 }
