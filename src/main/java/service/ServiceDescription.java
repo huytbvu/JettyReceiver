@@ -26,7 +26,7 @@ public class ServiceDescription implements Serializable {
 		this.images = images;
 	}
 	public String getId() {
-		return id.replace("/", ".");
+		return id.replace("/", "__");
 	}
 	public void setId(String id) {
 		this.id = id;

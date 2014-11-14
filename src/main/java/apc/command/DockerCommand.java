@@ -8,15 +8,15 @@ public class DockerCommand extends AbstractCommand{
 	}
 	
 	public void addImagesParam(String dockerImg){
-		sb.append(" --image "+dockerImg);
+		sb.append(" -i "+dockerImg);
 	}
 	
 	public void addStartCmdParam(String paramStartCmd){
-		sb.append(" --start \""+paramStartCmd+"\"");
+		sb.append(" -s \""+paramStartCmd+"\"");
 	}
 	
 	public void enableAutoRestart(){
-		sb.append(" --auto-restart");
+		sb.append(" -a");
 	}
 
 }
