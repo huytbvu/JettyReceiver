@@ -19,9 +19,10 @@ public class AbstractCommand {
 	
 	public String[] toCmdString(){
 		String[] cmds = new String[cmdBuild.size()];
-		for(int i=0; i<cmdBuild.size(); i++)
+		for(int i=0; i<cmdBuild.size(); i++){
 			cmds[i] = cmdBuild.get(i);
-		return cmds;
+			System.out.println(cmds[i]);
+		}return cmds;
 	}
 	
 	public void addCpusParam(double cpus){
