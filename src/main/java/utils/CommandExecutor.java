@@ -24,7 +24,7 @@ public class CommandExecutor {
 			
 			System.out.println("Command to execute is following: ");
 			for(String s:apcCmd)
-				System.out.println(s+" ");
+				System.out.print(s+" ");
 			Process p = Runtime.getRuntime().exec(apcCmd);
 		
 			printOutputAndError(p);
@@ -32,12 +32,16 @@ public class CommandExecutor {
 			p.waitFor();
 			if(sd.getInstances()>1){
 				String[] instanceCmd = AbstractCommand.generateUpdateInstanceCommand(sd.getId(), sd.getInstances());
+				for(String s:instanceCmd)
+					System.out.print(s+" ");
 				p = Runtime.getRuntime().exec(instanceCmd);
 				printOutputAndError(p);
 			}
 			
-			String[] instanceCmd = AbstractCommand.generateRouteCommand(sd.getId()+".smntberday.continuum-demo.io", sd.getId(), "http", 0, 8080);
-			p = Runtime.getRuntime().exec(instanceCmd);
+			String[] routeCmd = AbstractCommand.generateRouteCommand(sd.getId()+".smntberday.continuum-demo.io", sd.getId(), "http", 0, 8080);
+			for(String s:routeCmd)
+				System.out.print(s+" ");
+			p = Runtime.getRuntime().exec(routeCmd);
 			printOutputAndError(p);
 			
 		} catch (InterruptedException e) {
