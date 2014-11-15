@@ -55,7 +55,7 @@ public class AbstractCommand {
 		String[] cmds = {"apc","route","add",route,"--app",appName,
 				"--type",type,"--weight",Integer.toString(weight),
 				"--port",Integer.toString(port),
-				"--batch || true"};
+				"--batch","||","true"};
 		return cmds;
 	}
 	
