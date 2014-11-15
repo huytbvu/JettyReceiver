@@ -88,7 +88,7 @@ public class APCCommandTranslator {
 	 * @return
 	 */
 	private static String[] generateSimpleCommand(String appName, String jobAction){
-		String[] cmds =  {"apc","app",jobAction,appName,"--batch","||","true"};
+		String[] cmds =  {"apc","app",jobAction,appName,"-q"};
 		return cmds;
 	}
 	
