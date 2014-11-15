@@ -2,27 +2,57 @@ package utils;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 
+import org.eclipse.jetty.util.BufferUtil;
+
+import apc.command.AbstractCommand;
 import service.ServiceDescription;
 import enums.JobType;
 
 public class CommandExecutor {
 	
+	public static void executeCreateOperations(BufferedReader br) throws IOException{
+		try {
+			String desc = JSONUtils.retrieveJSONString(br);
+			System.out.println("JSON String received from flock master is:");
+			System.out.println(desc);
+			System.out.println();
+			ServiceDescription sd = JSONUtils.fromJSON(desc);
+			String[] apcCmd = APCCommandTranslator.getCreateCommands(sd, JobType.DOCKER);
+			
+			System.out.println("Command to execute is following: ");
+			for(String s:apcCmd)
+				System.out.println(s+" ");
+			Process p = Runtime.getRuntime().exec(apcCmd);
+		
+			printOutputAndError(p);
+		
+			p.waitFor();
+			if(sd.getInstances()>1){
+				String[] instanceCmd = AbstractCommand.generateUpdateInstanceCommand(sd.getId(), sd.getInstances());
+				p = Runtime.getRuntime().exec(instanceCmd);
+				printOutputAndError(p);
+			}
+			
+			String[] instanceCmd = AbstractCommand.generateRouteCommand(sd.getId()+".smntberday.continuum-demo.io", sd.getId(), "http", 0, 8080);
+			p = Runtime.getRuntime().exec(instanceCmd);
+			printOutputAndError(p);
+			
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+	}
 	
-	
-	public static void executeOperations(String action, BufferedReader br, String appName) throws IOException{
-		String desc = JSONUtils.retrieveJSONString(br);
-		System.out.println("JSON String received from flock master is:");
-		System.out.println(desc);
-		System.out.println();
+	public static void executeOtherOperations(String action, String appName) throws IOException{
+		
 		String[] apcCmd = {};
 		System.out.println("Current operation is "+action);
 		switch(action){
-			case "create":
-				ServiceDescription sd = JSONUtils.fromJSON(desc);
-				apcCmd = APCCommandTranslator.getCreateCommands(sd, JobType.DOCKER);
-				break;
 			case "start":
 				apcCmd = APCCommandTranslator.getStartComands(appName);
 				break;
@@ -47,24 +77,33 @@ public class CommandExecutor {
 		for(String s:apcCmd)
 			System.out.println(s+" ");
 		Process p = Runtime.getRuntime().exec(apcCmd);
-		
-		// print out something to test
-		String s = null;
+		try {
+			printOutputAndError(p);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        
+	}
+	
+	private static void printOutputAndError(Process p) throws IOException, InterruptedException{
 		BufferedReader stdInput = new BufferedReader(new InputStreamReader(p.getInputStream()));
 		BufferedReader stdError = new BufferedReader(new InputStreamReader(p.getErrorStream()));
- 
-        // read the output from the command
-        System.out.println("OUTPUT");
+		
+		String s = null;
+		System.out.println("OUTPUT");
         while ((s = stdInput.readLine()) != null)
             System.out.println(s);
         
-             
         System.out.println();
         // read any errors from the attempted command
         System.out.println("Standard ERROR");
         while ((s = stdError.readLine()) != null) 
             System.out.println(s);
         
+        p.waitFor();
+        stdInput.close();
+        stdError.close();
 	}
 
 }

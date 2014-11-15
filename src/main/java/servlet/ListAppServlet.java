@@ -14,7 +14,7 @@ public class ListAppServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException{
 		System.out.println("just receive a LIST");
 		BufferedReader br = req.getReader();
-		CommandExecutor.executeOperations("list", br,req.getPathInfo().substring(1));
+		CommandExecutor.executeOtherOperations("list", req.getPathInfo().substring(1));
 	}
 
 }

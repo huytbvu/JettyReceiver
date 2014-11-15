@@ -15,6 +15,6 @@ public class StopAppServlet extends HttpServlet{
 	protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws IOException{
 		System.out.println("just receive a STOP");
 		BufferedReader br = req.getReader();
-		CommandExecutor.executeOperations("stop", br, req.getPathInfo().substring(1));
+		CommandExecutor.executeOtherOperations("stop", req.getPathInfo().substring(1));
 	}
 }

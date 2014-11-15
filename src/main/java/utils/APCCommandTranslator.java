@@ -1,10 +1,16 @@
 package utils;
 
-import apc.command.AppCommand;
-import apc.command.DockerCommand;
+import apc.command.*;
 import enums.JobType;
 import service.ServiceDescription;
 
+
+/**
+ * Translate from Flock-master service description to APC commands
+ * 
+ * @author Huy Vu <huy.vu@ericsson.com>
+ *
+ */
 public class APCCommandTranslator {
 	
 
@@ -16,11 +22,14 @@ public class APCCommandTranslator {
 	 */
 	public static String[] getCreateCommands(ServiceDescription sd, JobType type){
 		String[] apcCommand = null;
-		JobType.values();
 		switch(type){
 			case APP:
 				AppCommand appCmd = new AppCommand(sd.getId(), "create");
 				apcCommand = appCmd.toCmdString();
+				break;
+			case CAPSULE:
+				CapsuleCommand capCmd = new CapsuleCommand(sd.getId(), "create");
+				apcCommand = capCmd.toCmdString();
 				break;
 			case DOCKER:
 				DockerCommand dockCmd = new DockerCommand(sd.getId(), "run");
@@ -79,7 +88,7 @@ public class APCCommandTranslator {
 	 * @return
 	 */
 	private static String[] generateSimpleCommand(String appName, String jobAction){
-		String[] cmds =  {"apc","app",jobAction,appName};
+		String[] cmds =  {"apc","app",jobAction,appName,"--batch","||","true"};
 		return cmds;
 	}
 	

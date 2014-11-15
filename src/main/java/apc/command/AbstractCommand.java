@@ -46,8 +46,17 @@ public class AbstractCommand {
 	 * @param number of instances to make
 	 * @return APC command to generate instances
 	 */
-	public static String generateUpdateInstanceCommand(String name, int instance){
-		return "apc app update " + name + " --instances " + instance;
+	public static String[] generateUpdateInstanceCommand(String name, int instance){
+		String[] cmds = {"apc","app","update",name,"--instances",Integer.toString(instance)};
+		return cmds;
+	}
+	
+	public static String[] generateRouteCommand(String route, String appName,String type, int weight, int port){
+		String[] cmds = {"apc","route","add",route,"--app",appName,
+				"--type",type,"--weight",Integer.toString(weight),
+				"--port",Integer.toString(port),
+				"--batch","||","true"};
+		return cmds;
 	}
 	
 	public void addEnvSetParam(String paramEnvSet){

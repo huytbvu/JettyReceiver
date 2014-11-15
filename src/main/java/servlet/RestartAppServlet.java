@@ -15,7 +15,7 @@ public class RestartAppServlet extends HttpServlet{
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException{
 		System.out.println("just receive a RESTART");
 		BufferedReader br = req.getReader();
-		CommandExecutor.executeOperations("restart", br, req.getPathInfo().substring(1));
+		CommandExecutor.executeOtherOperations("restart", req.getPathInfo().substring(1));
 	}
 
 }

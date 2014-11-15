@@ -12,12 +12,20 @@ import org.eclipse.jetty.servlet.ServletHandler;
 
 import servlet.*;
 
+/**
+ * Jetty Server on Continuum Flock-Worker
+ * handle request from Flock master
+ * to create, start, stop, restart, delete application
+ * 
+ * @author Huy Vu <huy.vu@ericsson.com>
+ *
+ */
+
 public class ContinuumFlockWorkerServer extends AbstractHandler{
 
 	@Override
 	public void handle(String target, Request baseRequest, HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
-		// TODO Auto-generated method stub
 		response.setContentType("text/html;charset=utf-8");
         response.setStatus(HttpServletResponse.SC_OK);
         baseRequest.setHandled(true);
