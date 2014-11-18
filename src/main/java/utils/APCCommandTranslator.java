@@ -36,6 +36,8 @@ public class APCCommandTranslator {
 				dockCmd.addImagesParam(sd.getContainer().getImage());
 				dockCmd.addStartCmdParam(sd.getCmd());
 				dockCmd.enableAutoRestart();
+				if(sd.getEnvSet()!=null)
+					dockCmd.addEnvSetParam(sd.getEnvSet());
 				apcCommand = dockCmd.toCmdString();
 				System.out.println(sd.getId());
 				break;

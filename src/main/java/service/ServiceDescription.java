@@ -1,6 +1,7 @@
 package service;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * Service Description
@@ -19,6 +20,7 @@ public class ServiceDescription implements Serializable {
 	private double cpus;
 	private String cmd;
 	private ContainerDescription container;
+	private List<Integer> ports;
 	public String getImages() {
 		return images;
 	}
@@ -65,6 +67,12 @@ public class ServiceDescription implements Serializable {
 				return s.substring(6);
 		}
 		return null;
+	}
+	public List<Integer> getPorts() {
+		return ports;
+	}
+	public void setPorts(List<Integer> ports) {
+		this.ports = ports;
 	}
 	
 }
