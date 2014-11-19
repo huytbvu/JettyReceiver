@@ -34,10 +34,14 @@ public class APCCommandTranslator {
 			case DOCKER:
 				DockerCommand dockCmd = new DockerCommand(sd.getId(), "run");
 				dockCmd.addImagesParam(sd.getContainer().getImage());
-				dockCmd.addStartCmdParam(sd.getCmd());
-				dockCmd.enableAutoRestart();
+				if(sd.getCmd()!=null)
+					dockCmd.addStartCmdParam(sd.getCmd());
 				if(sd.getEnvSet()!=null)
 					dockCmd.addEnvSetParam(sd.getEnvSet());
+				if(sd.getDisk()>0)
+					dockCmd.addDiskSpace(sd.getDisk());
+				
+				dockCmd.enableAutoRestart();
 				apcCommand = dockCmd.toCmdString();
 				System.out.println(sd.getId());
 				break;

@@ -18,6 +18,7 @@ public class ServiceDescription implements Serializable {
 	private String id;
 	private int instances;
 	private double cpus;
+	private double disk;
 	private String cmd;
 	private ContainerDescription container;
 	private List<Integer> ports;
@@ -73,6 +74,12 @@ public class ServiceDescription implements Serializable {
 	}
 	public void setPorts(List<Integer> ports) {
 		this.ports = ports;
+	}
+	public double getDisk() {
+		return disk;
+	}
+	public void setDisk(double disk) {
+		this.disk = disk;
 	}
 	
 }
