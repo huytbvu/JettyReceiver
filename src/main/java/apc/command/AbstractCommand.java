@@ -65,7 +65,7 @@ public class AbstractCommand {
 	}
 	
 	public void addDiskSpace(double diskSpace){
-		cmdBuild.add("--env-set");
+		cmdBuild.add("--disk");
 		cmdBuild.add(Double.toString(diskSpace));
 	}
 }
