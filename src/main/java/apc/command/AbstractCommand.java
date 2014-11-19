@@ -52,11 +52,22 @@ public class AbstractCommand {
 	}
 	
 	public static String[] generateRouteCommand(String route, String appName,String type, int weight, int port){
-		String[] cmds = {"apc","route","add",route,"--app",appName,
-				"--type",type,"--weight",Integer.toString(weight),
-				"--port",Integer.toString(port),
-				"-q"};
-		return cmds;
+		if(type.equals("http")){
+			String[] cmds = {"apc","route","add",route,"--app",appName,
+					"--type","http","--weight",Integer.toString(weight),
+					"--port",Integer.toString(port),
+					"-q"};
+			return cmds;
+		}
+		else{
+			String[] cmds = {"apc","route","add","auto","--app",appName,
+					"--type","tcp","--weight",Integer.toString(weight),
+					"--port",Integer.toString(port),
+					"-q"};
+			return cmds;
+		}
+		
+		
 	}
 	
 	public void addEnvSetParam(String paramEnvSet){

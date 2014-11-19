@@ -39,7 +39,7 @@ public class CommandExecutor {
 			}
 			
 			int port = (sd.getPorts() != null && sd.getPorts().get(0) != null) ? sd.getPorts().get(0) : 27017;
-			String[] routeCmd = AbstractCommand.generateRouteCommand(sd.getId()+".smntberday.continuum-demo.io", sd.getId(), "http", 0, port);
+			String[] routeCmd = AbstractCommand.generateRouteCommand(sd.getId()+".smntberday.continuum-demo.io", sd.getId(), "tcp", 0, port);
 			for(String s:routeCmd)
 				System.out.print(s+" ");
 			p = Runtime.getRuntime().exec(routeCmd);
