@@ -73,6 +73,7 @@ public class AbstractCommand {
 	public void addEnvSetParam(String paramEnvSet){
 		cmdBuild.add("--env-set");
 		cmdBuild.add(paramEnvSet);
+		System.out.println(paramEnvSet);
 	}
 	
 	public void addDiskSpace(double diskSpace){
