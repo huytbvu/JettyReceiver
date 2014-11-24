@@ -15,6 +15,9 @@ public class CommandExecutor {
 	
 	public static void executeCreateOperations(BufferedReader br) throws IOException{
 		try {
+			System.out.println("********************************************");
+			System.out.println("NEW COMMAND FROM FLOCK MASTER");
+			System.out.println("********************************************");
 			String desc = JSONUtils.retrieveJSONString(br);
 			System.out.println("JSON String received from flock master is:");
 			System.out.println(desc);
@@ -54,7 +57,9 @@ public class CommandExecutor {
 	}
 	
 	public static void executeOtherOperations(String action, String appName) throws IOException{
-		
+		System.out.println("********************************************");
+		System.out.println("NEW COMMAND FROM FLOCK MASTER");
+		System.out.println("********************************************");
 		String[] apcCmd = {};
 		System.out.println("Current operation is "+action);
 		switch(action){
