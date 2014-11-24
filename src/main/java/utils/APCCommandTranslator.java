@@ -41,7 +41,7 @@ public class APCCommandTranslator {
 				if(sd.getDisk()>0)
 					dockCmd.addDiskSpace(sd.getDisk());
 				
-				dockCmd.enableAutoRestart();
+				//dockCmd.enableAutoRestart();
 				apcCommand = dockCmd.toCmdString();
 				System.out.println(sd.getId());
 				break;
