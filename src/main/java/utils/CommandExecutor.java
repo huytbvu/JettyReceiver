@@ -48,6 +48,14 @@ public class CommandExecutor {
 			p = Runtime.getRuntime().exec(routeCmd);
 			printOutputAndError(p);
 			
+			p.waitFor();
+			
+			String[] updateCmd = AbstractCommand.generateUpdateEgressCommand(sd.getId());
+			for(String s:updateCmd)
+				System.out.print(s+" ");
+			p = Runtime.getRuntime().exec(updateCmd);
+			printOutputAndError(p);
+			
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
