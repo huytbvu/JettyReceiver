@@ -32,7 +32,6 @@ public class CommandExecutor {
 		
 			printOutputAndError(p);
 		
-			p.waitFor();
 			if(sd.getInstances()>1){
 				String[] instanceCmd = AbstractCommand.generateUpdateInstanceCommand(sd.getId(), sd.getInstances());
 				for(String s:instanceCmd)
@@ -41,14 +40,15 @@ public class CommandExecutor {
 				printOutputAndError(p);
 			}
 			
-			int port = (sd.getPorts() != null && sd.getPorts().get(0) != null) ? sd.getPorts().get(0) : 27017;
-			String[] routeCmd = AbstractCommand.generateRouteCommand(sd.getId()+".smntberday.continuum-demo.io", sd.getId(), "tcp", 0, port);
-			for(String s:routeCmd)
-				System.out.print(s+" ");
-			p = Runtime.getRuntime().exec(routeCmd);
-			printOutputAndError(p);
 			
-			p.waitFor();
+			for(int port : sd.getPorts()){
+				String[] routeCmd = AbstractCommand.generateRouteCommand(sd.getId()+".smntberday.continuum-demo.io", sd.getId(), "tcp", 0, port);
+				for(String s:routeCmd)
+					System.out.print(s+" ");
+				p = Runtime.getRuntime().exec(routeCmd);
+				printOutputAndError(p);
+				
+			}
 			
 			String[] updateCmd = AbstractCommand.generateUpdateEgressCommand(sd.getId());
 			for(String s:updateCmd)
@@ -108,15 +108,14 @@ public class CommandExecutor {
 		BufferedReader stdError = new BufferedReader(new InputStreamReader(p.getErrorStream()));
 		
 		String s = null;
-		System.out.println("OUTPUT");
+		System.out.println();
         while ((s = stdInput.readLine()) != null)
-            System.out.println(s);
+            System.out.println("[STDOUT] "+s);
         
         System.out.println();
         // read any errors from the attempted command
-        System.out.println("Standard ERROR");
         while ((s = stdError.readLine()) != null) 
-            System.out.println(s);
+            System.out.println("[STDERR]" + s);
         
         p.waitFor();
         stdInput.close();
