@@ -13,7 +13,6 @@ public class RestartAppServlet extends HttpServlet{
 	
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException{
-		System.out.println("just receive a RESTART");
 		BufferedReader br = req.getReader();
 		CommandExecutor.executeOtherOperations("restart", req.getPathInfo().substring(1));
 	}

@@ -15,17 +15,19 @@ public class CommandExecutor {
 	
 	public static void executeCreateOperations(BufferedReader br) throws IOException{
 		try {
+			System.out.println("[STDOUT]");
 			System.out.println("********************************************");
 			System.out.println("NEW COMMAND FROM FLOCK MASTER");
 			System.out.println("********************************************");
 			String desc = JSONUtils.retrieveJSONString(br);
-			System.out.println("JSON String received from flock master is:");
+			System.out.println();
+			System.out.println("[STDOUT] Service Description received from flock master:");
 			System.out.println(desc);
 			System.out.println();
 			ServiceDescription sd = JSONUtils.fromJSON(desc);
 			String[] apcCmd = APCCommandTranslator.getCreateCommands(sd, JobType.DOCKER);
 			
-			System.out.println("Command to execute is following: ");
+			System.out.println("[STDOUT] Command to execute is following: ");
 			for(String s:apcCmd)
 				System.out.print(s+" ");
 			Process p = Runtime.getRuntime().exec(apcCmd);
@@ -57,7 +59,6 @@ public class CommandExecutor {
 			printOutputAndError(p);
 			
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
@@ -65,11 +66,12 @@ public class CommandExecutor {
 	}
 	
 	public static void executeOtherOperations(String action, String appName) throws IOException{
+		System.out.println("[STDOUT]");
 		System.out.println("********************************************");
 		System.out.println("NEW COMMAND FROM FLOCK MASTER");
 		System.out.println("********************************************");
 		String[] apcCmd = {};
-		System.out.println("Current operation is "+action);
+		System.out.println("[STDOUT] Current operation is "+action);
 		switch(action){
 			case "start":
 				apcCmd = APCCommandTranslator.getStartComands(appName);
@@ -91,9 +93,9 @@ public class CommandExecutor {
 		
 		// apc, docker run, appname, -i, huytbvu/apctest ,-s, "ls", -a
 		
-		System.out.println("Command to execute is following: ");
+		System.out.println("[STDOUT] Command to execute is following: ");
 		for(String s:apcCmd)
-			System.out.println(s+" ");
+			System.out.print(s+" ");
 		Process p = Runtime.getRuntime().exec(apcCmd);
 		try {
 			printOutputAndError(p);

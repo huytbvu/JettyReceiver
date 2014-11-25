@@ -13,8 +13,6 @@ public class CreateAppServlet extends HttpServlet{
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException{
-		System.out.println("just receive a CREATE");
-
 		resp.setContentType("text/html;charset=utf-8");
         resp.setStatus(HttpServletResponse.SC_OK);
 		BufferedReader reader = req.getReader();

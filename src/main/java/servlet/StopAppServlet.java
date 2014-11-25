@@ -13,7 +13,6 @@ public class StopAppServlet extends HttpServlet{
 
 	@Override
 	protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws IOException{
-		System.out.println("just receive a STOP");
 		BufferedReader br = req.getReader();
 		CommandExecutor.executeOtherOperations("stop", req.getPathInfo().substring(1));
 	}
