@@ -97,7 +97,7 @@ public class AbstractCommand {
 	 * @return
 	 */
 	public static String[] generateUpdateEgressCommand(String name){
-		String[] cmds = {"echo","y\ny\n","|","apc","app","update",name,"-ae","-e","DUMMY=dummy"};
+		String[] cmds = {"echo","'\n\n'","|","apc","app","update",name,"-ae","-e","DUMMY=dummy"};
 		return cmds;
 	}
 }
