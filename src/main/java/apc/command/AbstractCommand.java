@@ -99,7 +99,7 @@ public class AbstractCommand {
 	public static String[] generateUpdateEgressCommand(String name){
 		//String[] cmds = {"echo","'\\n\\n'","|","apc","app","update",name,"-ae","-e","DUMMY=dummy"};
 		String cmd = "echo '\\n\\n' | apc app update " + name + " -ae -e DUMMY=dummy";
-		String[] cmds = {cmd};
+		String[] cmds = {"/bin/sh","-c",cmd};
 		return cmds;
 	}
 }
