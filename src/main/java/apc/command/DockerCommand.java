@@ -21,9 +21,12 @@ public class DockerCommand extends AbstractCommand{
 		cmdBuild.add(dockerImg);
 	}
 	
-	public void addStartCmdParam(String paramStartCmd){
+	public void addStartCmdParam(String envVar, String paramStartCmd){
+		String e = envVar == null ? "" : envVar;
 		cmdBuild.add("-s");
-		cmdBuild.add("'"+paramStartCmd+"'");
+		cmdBuild.add("sh -c 'echo "+e+" /etc/profile; "
+				+ "while true; do wget google.com; if [ $? -eq 0 ]; then break; fi; sleep 1; done; "
+				+ paramStartCmd +"' &");
 	}
 	
 	public void enableAutoRestart(){

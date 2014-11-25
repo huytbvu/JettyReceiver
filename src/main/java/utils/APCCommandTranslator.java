@@ -35,9 +35,7 @@ public class APCCommandTranslator {
 				DockerCommand dockCmd = new DockerCommand(sd.getId(), "run");
 				dockCmd.addImagesParam(sd.getContainer().getImage());
 				if(sd.getCmd()!=null)
-					dockCmd.addStartCmdParam(sd.getCmd());
-				if(sd.getEnvSet()!=null)
-					dockCmd.addEnvSetParam(sd.getEnvSet());
+					dockCmd.addStartCmdParam(sd.getEnvSet(),sd.getCmd());
 				if(sd.getDisk()>0)
 					dockCmd.addDiskSpace(sd.getDisk());
 				

@@ -51,6 +51,16 @@ public class AbstractCommand {
 		return cmds;
 	}
 	
+	/**
+	 * generate APC command to add route for docker containers
+	 * 
+	 * @param route
+	 * @param appName
+	 * @param type
+	 * @param weight
+	 * @param port
+	 * @return
+	 */
 	public static String[] generateRouteCommand(String route, String appName,String type, int weight, int port){
 		if(type.equals("http")){
 			String[] cmds = {"apc","route","add",route,"--app",appName,
@@ -70,15 +80,24 @@ public class AbstractCommand {
 		
 	}
 	
-	public void addEnvSetParam(String paramEnvSet){
-		cmdBuild.add("--env-set");
-		cmdBuild.add(paramEnvSet);
-		System.out.print("ENVIRONMENT VARIABLE: ");
-		System.out.println(paramEnvSet);
-	}
-	
+	/**
+	 * add disk space 
+	 * @param diskSpace
+	 */
 	public void addDiskSpace(double diskSpace){
 		cmdBuild.add("--disk");
 		cmdBuild.add(Double.toString(diskSpace));
+	}
+	
+	/**
+	 * update app to allow-egress
+	 * this feature is currently not functioning properly for -ae tag
+	 * therefore need to add another dummy tag
+	 * @param name
+	 * @return
+	 */
+	public static String[] generateUpdateEgressCommand(String name){
+		String[] cmds = {"echo","y\ny\n","|","apc","app","update",name,"-ae","-e","DUMMY=dummy"};
+		return cmds;
 	}
 }
