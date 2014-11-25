@@ -1,6 +1,5 @@
 package servlet;
 
-import java.io.BufferedReader;
 import java.io.IOException;
 
 import javax.servlet.http.HttpServlet;
@@ -9,11 +8,11 @@ import javax.servlet.http.HttpServletResponse;
 
 import utils.CommandExecutor;
 
+@SuppressWarnings("serial")
 public class StopAppServlet extends HttpServlet{
 
 	@Override
 	protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws IOException{
-		BufferedReader br = req.getReader();
-		CommandExecutor.executeOtherOperations("stop", req.getPathInfo().substring(1));
+		CommandExecutor.executeStopOperation(req.getPathInfo().substring(1));
 	}
 }

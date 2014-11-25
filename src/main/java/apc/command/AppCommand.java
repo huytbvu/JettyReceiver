@@ -1,5 +1,11 @@
 package apc.command;
 
+/**
+ * structure of Continuum Application commands
+ * 
+ * @author Huy Vu <huy.vu@ericsson.com>
+ *
+ */
 public class AppCommand extends AbstractCommand {
 
 	

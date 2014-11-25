@@ -1,5 +1,12 @@
 package enums;
 
+/**
+ * Type of Continuum resources, currently support the followings:
+ * App, Capsule, Docker, Provider, Service
+ * 
+ * @author Huy Vu <huy.vu@ericsson.com>
+ *
+ */
 public enum JobType {
 	APP("app"),
 	CAPSULE("capsule"),

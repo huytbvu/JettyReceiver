@@ -20,7 +20,7 @@ public class APCCommandTranslator {
 	 * @param type app/capsule/docker/service
 	 * @return APC create commands
 	 */
-	public static String[] getCreateCommands(ServiceDescription sd, JobType type){
+	public static String[] getCreateCommand(ServiceDescription sd, JobType type){
 		String[] apcCommand = null;
 		switch(type){
 			case APP:
@@ -54,7 +54,7 @@ public class APCCommandTranslator {
 	 * @param appName
 	 * @return APC start command
 	 */
-	public static String[] getStartComands(String appName){
+	public static String[] getStartComand(String appName){
 		return generateSimpleCommand(appName, "start");
 	}
 	
@@ -63,7 +63,7 @@ public class APCCommandTranslator {
 	 * @param appName
 	 * @return APC stop command
 	 */
-	public static String[] getStopComands(String appName){
+	public static String[] getStopComand(String appName){
 		return generateSimpleCommand(appName, "stop");
 	}
 	
@@ -72,7 +72,7 @@ public class APCCommandTranslator {
 	 * @param appName
 	 * @return APC delete command
 	 */
-	public static String[] getDeleteComands(String appName){
+	public static String[] getDeleteComand(String appName){
 		return generateSimpleCommand(appName, "delete");
 	}
 	
@@ -81,7 +81,7 @@ public class APCCommandTranslator {
 	 * @param appName
 	 * @return APC restart command
 	 */
-	public static String[] getRestartComands(String appName){
+	public static String[] getRestartComand(String appName){
 		return generateSimpleCommand(appName, "restart");
 	}
 	

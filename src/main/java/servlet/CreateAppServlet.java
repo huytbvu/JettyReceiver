@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import utils.CommandExecutor;
 
 
+@SuppressWarnings("serial")
 public class CreateAppServlet extends HttpServlet{
 
 	@Override
@@ -16,7 +17,7 @@ public class CreateAppServlet extends HttpServlet{
 		resp.setContentType("text/html;charset=utf-8");
         resp.setStatus(HttpServletResponse.SC_OK);
 		BufferedReader reader = req.getReader();
-		CommandExecutor.executeCreateOperations(reader);
+		CommandExecutor.executeCreateOperation(reader);
 		
 	}
 }

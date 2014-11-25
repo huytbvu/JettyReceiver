@@ -1,5 +1,11 @@
 package apc.command;
 
+/**
+ * structure of Continuum Capsule commands
+ * 
+ * @author Huy Vu <huy.vu@ericsson.com>
+ *
+ */
 public class CapsuleCommand extends AbstractCommand{
 	
 	public CapsuleCommand(String name,String action){

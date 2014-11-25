@@ -3,11 +3,15 @@ package service;
 import java.io.Serializable;
 import java.util.List;
 
+/**
+ * 
+ * @author Huy Vu <huy.vu@ericsson.com>
+ *
+ */
 public class ContainerDescription implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 	private String image;
-	private String env;
 	private List<String> options;
 	
 	public ContainerDescription(){}
@@ -28,14 +32,5 @@ public class ContainerDescription implements Serializable {
 		this.options = options;
 		
 	}
-	
-	public String getENV(){
-		for(String s:options){
-			if(s.startsWith("--env"))
-				env = s.substring(6);
-		}
-		return env;
-	}
-	
-	
+
 }

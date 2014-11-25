@@ -30,11 +30,21 @@ public class AbstractCommand {
 		}return cmds;
 	}
 	
+	/**
+	 * add cpu parameter
+	 * 
+	 * @param cpus
+	 */
 	public void addCpusParam(double cpus){
 		cmdBuild.add("--cpus");
 		cmdBuild.add(Double.toString(cpus));
 	}
 	
+	/**
+	 * add memory parameter
+	 * 
+	 * @param memory
+	 */
 	public void addMemoryParam(int memory){
 		cmdBuild.add("--memory");
 		cmdBuild.add(Integer.toString(memory));

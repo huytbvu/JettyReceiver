@@ -1,5 +1,11 @@
 package apc.command;
 
+/**
+ * structure of Continuum Service commands
+ * 
+ * @author Huy Vu <huy.vu@ericsson.com>
+ *
+ */
 public class ServiceCommand extends AbstractCommand {
 
 	public ServiceCommand(String name,String action){

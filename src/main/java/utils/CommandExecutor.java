@@ -2,109 +2,134 @@ package utils;
 
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
-
-import org.eclipse.jetty.util.BufferUtil;
 
 import apc.command.AbstractCommand;
 import service.ServiceDescription;
 import enums.JobType;
+/**
+ * Command executor is the tool to execute APC commands in Continuum
+ * 
+ * @author Huy Vu <huy.vu@ericsson.com>
+ *
+ */
 
 public class CommandExecutor {
 	
-	public static void executeCreateOperations(BufferedReader br) throws IOException{
-		try {
-			System.out.println("[STDOUT]");
-			System.out.println("********************************************");
-			System.out.println("NEW COMMAND FROM FLOCK MASTER");
-			System.out.println("********************************************");
-			String desc = JSONUtils.retrieveJSONString(br);
-			System.out.println();
-			System.out.println("[STDOUT] Service Description received from flock master:");
-			System.out.println(desc);
-			System.out.println();
-			ServiceDescription sd = JSONUtils.fromJSON(desc);
-			String[] apcCmd = APCCommandTranslator.getCreateCommands(sd, JobType.DOCKER);
-			
-			System.out.println("[STDOUT] Command to execute is following: ");
-			for(String s:apcCmd)
-				System.out.print(s+" ");
-			Process p = Runtime.getRuntime().exec(apcCmd);
+
+	/**
+	 * execute create operation
+	 * @param appName
+	 */
+	public static void executeCreateOperation(BufferedReader br) throws IOException{
+		printRequestHeader("CREATE");
+		String desc = JSONUtils.retrieveJSONString(br);
+		System.out.println();
+		System.out.println("[STDOUT] Service Description received from flock master:");
+		System.out.println(desc);
+		System.out.println();
+		ServiceDescription sd = JSONUtils.fromJSON(desc);
+		String[] apcCmd = APCCommandTranslator.getCreateCommand(sd, JobType.DOCKER);
+		executeOneCommand(apcCmd);
 		
-			printOutputAndError(p);
-		
-			if(sd.getInstances()>1){
-				String[] instanceCmd = AbstractCommand.generateUpdateInstanceCommand(sd.getId(), sd.getInstances());
-				for(String s:instanceCmd)
-					System.out.print(s+" ");
-				p = Runtime.getRuntime().exec(instanceCmd);
-				printOutputAndError(p);
-			}
-			
-			
-			for(int port : sd.getPorts()){
-				String[] routeCmd = AbstractCommand.generateRouteCommand(sd.getId()+".smntberday.continuum-demo.io", sd.getId(), "tcp", 0, port);
-				for(String s:routeCmd)
-					System.out.print(s+" ");
-				p = Runtime.getRuntime().exec(routeCmd);
-				printOutputAndError(p);
-				
-			}
-			
-			String[] updateCmd = AbstractCommand.generateUpdateEgressCommand(sd.getId());
-			for(String s:updateCmd)
-				System.out.print(s+" ");
-			p = Runtime.getRuntime().exec(updateCmd);
-			printOutputAndError(p);
-			
-		} catch (InterruptedException e) {
-			e.printStackTrace();
+		if(sd.getInstances()>1){
+			String[] instanceCmd = AbstractCommand.generateUpdateInstanceCommand(sd.getId(), sd.getInstances());
+			executeOneCommand(instanceCmd);
 		}
 		
 		
+		for(int port : sd.getPorts()){
+			String[] routeCmd = AbstractCommand.generateRouteCommand(sd.getId()+".smntberday.continuum-demo.io", sd.getId(), "tcp", 0, port);
+			executeOneCommand(routeCmd);
+		}
+		
+		String[] updateCmd = AbstractCommand.generateUpdateEgressCommand(sd.getId());
+		executeOneCommand(updateCmd);	
+	}
+
+	/**
+	 * execute start operation
+	 * @param appName
+	 */
+	public static void executeStartOperation(String appName){
+		printRequestHeader("START");
+		executeOneCommand(APCCommandTranslator.getStartComand(appName));
+	}
+
+	/**
+	 * execute stop operation
+	 * @param appName
+	 */
+	public static void executeStopOperation(String appName){
+		printRequestHeader("STOP");
+		executeOneCommand(APCCommandTranslator.getStopComand(appName));
+	}
+
+	/**
+	 * execute restart operation
+	 * @param appName
+	 */
+	public static void executeRestartOperation(String appName){
+		printRequestHeader("RESTART");
+		executeOneCommand(APCCommandTranslator.getRestartComand(appName));
+	}
+
+	/**
+	 * execute delete operation
+	 * @param appName
+	 */
+	public static void executeDeleteOperation(String appName){
+		printRequestHeader("DELETE");
+		executeOneCommand(APCCommandTranslator.getDeleteComand(appName));
 	}
 	
-	public static void executeOtherOperations(String action, String appName) throws IOException{
+	/**
+	 * execute list operation
+	 * @param appName
+	 */
+	public static void executeListOperation(String appName){
+		printRequestHeader("LIST");
+		executeOneCommand(APCCommandTranslator.getListCommand());
+	}
+	
+	/**
+	 * execute a single APC command
+	 * @param cmds
+	 */
+	private static void executeOneCommand(String[] cmds){
+		System.out.println("[STDOUT] Command to execute is following: ");
+		for(String s:cmds)
+			System.out.print(s+" ");
+		
+		try {
+			Process p = Runtime.getRuntime().exec(cmds);
+			printOutputAndError(p);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	/**
+	 * print information about this service request
+	 * @param action
+	 */
+	private static void printRequestHeader(String action){
 		System.out.println("[STDOUT]");
 		System.out.println("********************************************");
 		System.out.println("NEW COMMAND FROM FLOCK MASTER");
 		System.out.println("********************************************");
-		String[] apcCmd = {};
-		System.out.println("[STDOUT] Current operation is "+action);
-		switch(action){
-			case "start":
-				apcCmd = APCCommandTranslator.getStartComands(appName);
-				break;
-			case "stop":
-				apcCmd = APCCommandTranslator.getStopComands(appName);
-				break;
-			case "restart":
-				apcCmd = APCCommandTranslator.getRestartComands(appName);
-				break;
-			case "delete":
-				apcCmd = APCCommandTranslator.getDeleteComands(appName);
-				break;
-			case "list":
-				apcCmd = APCCommandTranslator.getListCommand();
-			default:
-				break;
-		}
-		
-		// apc, docker run, appname, -i, huytbvu/apctest ,-s, "ls", -a
-		
-		System.out.println("[STDOUT] Command to execute is following: ");
-		for(String s:apcCmd)
-			System.out.print(s+" ");
-		Process p = Runtime.getRuntime().exec(apcCmd);
-		try {
-			printOutputAndError(p);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
-        
+		System.out.println("[STDOUT] Current operation is " + action); 
 	}
 	
+	/**
+	 * this method print STDOUT and STDERR of commandline execution
+	 * 
+	 * @param p
+	 * @throws IOException
+	 * @throws InterruptedException
+	 */
 	private static void printOutputAndError(Process p) throws IOException, InterruptedException{
 		BufferedReader stdInput = new BufferedReader(new InputStreamReader(p.getInputStream()));
 		BufferedReader stdError = new BufferedReader(new InputStreamReader(p.getErrorStream()));

@@ -1,7 +1,7 @@
 package apc.command;
 
 /**
- * APC docker command
+ * structure of Continuum Docker commands
  * 
  * @author Huy Vu <huy.vu@ericsson.com>
  *
