@@ -1,5 +1,7 @@
 package apc.command;
 
+import utils.DefaultConfig;
+
 /**
  * structure of Continuum Docker commands
  * 
@@ -21,10 +23,11 @@ public class DockerCommand extends AbstractCommand{
 		cmdBuild.add(dockerImg);
 	}
 	
-	public void addStartCmdParam(String envVar, String paramStartCmd){
+	public void addStartCmdParam(String envVar, String paramStartCmd, int[] ports){
 		String e = envVar == null ? "" : envVar;
 		cmdBuild.add("-s");
-		cmdBuild.add("sh -c 'export "+e+"; "
+		cmdBuild.add("sh -c 'export "+e+"; export SVC_ROUTE_IP="+DefaultConfig.DEFAULT_TCP_IP
+				+ "; export SVC_ROUTE_PORT="+ports[0]+"; export SVC_ROUTE_HTTP_PORT="+ports[1]+"; "
 				+ "while true; do wget google.com; if [ $? -eq 0 ]; then break; fi; sleep 1; done; "
 				+ paramStartCmd +"' &");
 	}

@@ -20,7 +20,7 @@ public class APCCommandTranslator {
 	 * @param type app/capsule/docker/service
 	 * @return APC create commands
 	 */
-	public static String[] getCreateCommand(ServiceDescription sd, JobType type){
+	public static String[] getCreateCommand(ServiceDescription sd, JobType type, int[] ports){
 		String[] apcCommand = null;
 		switch(type){
 			case APP:
@@ -35,7 +35,7 @@ public class APCCommandTranslator {
 				DockerCommand dockCmd = new DockerCommand(sd.getId(), "run");
 				dockCmd.addImagesParam(sd.getContainer().getImage());
 				if(sd.getCmd()!=null)
-					dockCmd.addStartCmdParam(sd.getEnvSet(),sd.getCmd());
+					dockCmd.addStartCmdParam(sd.getEnvSet(),sd.getCmd(), ports);
 				if(sd.getDisk()>0)
 					dockCmd.addDiskSpace(sd.getDisk());
 				

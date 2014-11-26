@@ -29,7 +29,9 @@ public class CommandExecutor {
 		System.out.println(desc);
 		System.out.println();
 		ServiceDescription sd = JSONUtils.fromJSON(desc);
-		String[] apcCmd = APCCommandTranslator.getCreateCommand(sd, JobType.DOCKER);
+		int[] ports = new int[]{DefaultConfig.getNextAvailablePort(),
+				DefaultConfig.getNextAvailablePort(),DefaultConfig.getNextAvailablePort()};
+		String[] apcCmd = APCCommandTranslator.getCreateCommand(sd, JobType.DOCKER, ports);
 		executeOneCommand(apcCmd);
 		
 		if(sd.getInstances()>1){
@@ -37,9 +39,10 @@ public class CommandExecutor {
 			executeOneCommand(instanceCmd);
 		}
 		
-		
+		int i=0;
 		for(int port : sd.getPorts()){
-			String[] routeCmd = AbstractCommand.generateRouteCommand(sd.getId()+".smntberday.continuum-demo.io", sd.getId(), "tcp", 0, port);
+			String[] routeCmd = AbstractCommand.generateRouteCommand(ports[i], sd.getId(), "tcp", 0, port);
+			i++;
 			executeOneCommand(routeCmd);
 		}
 		
