@@ -48,6 +48,9 @@ public class CommandExecutor {
 		
 		String[] updateCmd = AbstractCommand.generateUpdateEgressCommand(sd.getId());
 		executeOneCommand(updateCmd);	
+		
+		String[] restartCmd = APCCommandTranslator.getRestartComand(sd.getId());
+		executeOneCommand(restartCmd);
 	}
 
 	/**
