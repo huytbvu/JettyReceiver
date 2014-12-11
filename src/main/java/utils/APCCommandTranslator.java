@@ -39,9 +39,9 @@ public class APCCommandTranslator {
 				if(sd.getDisk()>0)
 					dockCmd.addDiskSpace(sd.getDisk());
 				if(sd.getCpus()>0)
-					dockCmd.addDiskSpace(sd.getCpus());
+					dockCmd.addCpusParam(sd.getCpus());
 				if(sd.getMem()>0)
-					dockCmd.addDiskSpace(sd.getMem());
+					dockCmd.addMemoryParam(sd.getMem()t);
 				//dockCmd.enableAutoRestart();
 				apcCommand = dockCmd.toCmdString();
 				System.out.println(sd.getId());

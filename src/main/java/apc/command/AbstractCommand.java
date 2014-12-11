@@ -47,9 +47,9 @@ public class AbstractCommand {
 	 * 
 	 * @param memory
 	 */
-	public void addMemoryParam(int memory){
+	public void addMemoryParam(double memory){
 		cmdBuild.add("--memory");
-		cmdBuild.add(Integer.toString(memory));
+		cmdBuild.add(Double.toString(memory));
 	}
 	
 	/**
